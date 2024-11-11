@@ -23,7 +23,6 @@ public class ProductService : IProductService
 
   public async Task CreateProduct(ProductRequestDto productDto)
   {
-    Console.WriteLine(productDto);
     Product product = new()
     {
       Name = productDto.Name,

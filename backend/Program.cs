@@ -1,5 +1,6 @@
 using dotenv.net;
 using PointOfSale.Extensions;
+using PointOfSale.Middlewares;
 using TodoListApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<RoleAuthorizationMiddleware>();
 
 app.MapControllers()
 .WithOpenApi();
