@@ -1,9 +1,10 @@
+using PointOfSale.DTO;
 using PointOfSale.Models;
-using PointOfSale.Repositories.Interfaces;
 
 namespace PointOfSale.Services.Interfaces;
 
 public interface IAuthService
 {
-  Task<User> Register(RegisterRequestDto registerDto);
+  Task Register(RegisterRequestDto registerDto);
+  Task<string> Login(LoginRequestDto loginDto);
 }

@@ -4,6 +4,6 @@ namespace PointOfSale.Repositories.Interfaces
 {
   public interface IAuthRepository
   {
-    Task<User> Register(User user);
+    Task Register(User user);
   }
 }

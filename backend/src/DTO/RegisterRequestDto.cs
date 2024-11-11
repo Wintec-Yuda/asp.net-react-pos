@@ -1,12 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PointOfSale.Repositories.Interfaces;
+namespace PointOfSale.DTO;
 
 public class RegisterRequestDto
 {
   [Required]
   [StringLength(50, MinimumLength = 5)]
-  public string? Username { get; set; }
+  public string? Name { get; set; }
   [Required]
   [EmailAddress]
   public string? Email { get; set; }

@@ -9,7 +9,7 @@ DotEnv.Load();
 
 // Menambahkan koneksi PostgreSQL ke konteks database
 builder.Services.AddDatabaseConfiguration(builder.Configuration);
-
+builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddDependencyInjection();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerConfiguration();
@@ -26,7 +26,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers()
-.WithName("POS Restful API")
 .WithOpenApi();
 
 app.Run();

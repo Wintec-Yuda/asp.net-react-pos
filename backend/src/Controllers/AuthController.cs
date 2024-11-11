@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using PointOfSale.Repositories.Interfaces;
+using PointOfSale.DTO;
 using PointOfSale.Services.Interfaces;
 
 namespace PointOfSale.Controllers;
@@ -13,7 +13,7 @@ public class AuthController : ControllerBase
   public AuthController(IAuthService authService) => _authService = authService;
 
   [HttpPost("register")]
-  public async Task<IActionResult> Register(RegisterRequestDto registerDto)
+  public async Task<IActionResult> Register([FromBody]RegisterRequestDto registerDto)
   {
     try
     {
@@ -21,6 +21,26 @@ public class AuthController : ControllerBase
       return Ok(new
       {
         message = "User registered successfully"
+      });
+    }
+    catch (Exception e)
+    {
+      return NotFound(new
+      {
+        message = e.Message
+      });
+    }
+  }
+
+  [HttpPost("login")]
+  public async Task<IActionResult> Login([FromBody]LoginRequestDto loginDto)
+  {
+    try
+    {
+      string token = await _authService.Login(loginDto);
+      return Ok(new {
+        message = "User logged in successfully",
+        token
       });
     }
     catch (Exception e)

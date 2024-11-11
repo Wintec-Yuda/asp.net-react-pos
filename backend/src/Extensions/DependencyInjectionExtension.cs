@@ -12,7 +12,9 @@ public static class DependencyInjectionExtension
     services.AddScoped<IAuthRepository, AuthRepository>();
     services.AddScoped<IAuthService, AuthService>();
     services.AddScoped<IUserRepository, UserRepository>();
-    
+    services.AddScoped<IProductRepository, ProductRepository>();
+    services.AddScoped<IProductService, ProductService>();
+
     return services;
   }
 }
