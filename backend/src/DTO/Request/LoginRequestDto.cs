@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PointOfSale.DTO;
+namespace PointOfSale.DTO.Request;
 
 public class LoginRequestDto
 {

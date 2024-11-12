@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PointOfSale.DTO;
-using PointOfSale.Models;
+using PointOfSale.DTO.Request;
 using PointOfSale.Services.Interfaces;
 
 namespace PointOfSale.Controllers;
@@ -63,11 +62,11 @@ public class ProductController : ControllerBase
 
   [Authorize(Roles = "ADMIN")]
   [HttpPost]
-  public async Task<IActionResult> CreateProduct([FromBody] ProductRequestDto productDto)
+  public async Task<IActionResult> CreateProduct([FromBody] ProductRequestDto productRequestDto)
   {
     try
     {
-      await _productService.CreateProduct(productDto);
+      await _productService.CreateProduct(productRequestDto);
       return StatusCode(201, new
       {
         message = "Create product successfully"
@@ -81,13 +80,13 @@ public class ProductController : ControllerBase
 
   [Authorize(Roles = "ADMIN")]
   [HttpPut("{id}")]
-  public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] ProductRequestDto productDto)
+  public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] ProductRequestDto productRequestDto)
   {
     try
     {
       try
       {
-        await _productService.UpdateProduct(id, productDto);
+        await _productService.UpdateProduct(id, productRequestDto);
         return Ok(new
         {
           message = "Update product successfully"

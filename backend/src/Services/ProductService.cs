@@ -1,4 +1,4 @@
-using PointOfSale.DTO;
+using PointOfSale.DTO.Request;
 using PointOfSale.Models;
 using PointOfSale.Repositories.Interfaces;
 using PointOfSale.Services.Interfaces;
@@ -21,19 +21,19 @@ public class ProductService : IProductService
     return await _productRepository.GetProductById(id);
   }
 
-  public async Task CreateProduct(ProductRequestDto productDto)
+  public async Task CreateProduct(ProductRequestDto productRequestDto)
   {
     Product product = new()
     {
-      Name = productDto.Name,
-      Price = productDto.Price,
-      Stock = productDto.Stock
+      Name = productRequestDto.Name,
+      Price = productRequestDto.Price,
+      Stock = productRequestDto.Stock
     };
     
     await _productRepository.CreateProduct(product);
   }
 
-  public async Task UpdateProduct(Guid id, ProductRequestDto productDto)
+  public async Task UpdateProduct(Guid id, ProductRequestDto productRequestDto)
   {
     Product? product = await _productRepository.GetProductById(id);
 
@@ -42,7 +42,7 @@ public class ProductService : IProductService
       throw new Exception("Product not found");
     }
 
-    await _productRepository.UpdateProduct(product, productDto);
+    await _productRepository.UpdateProduct(product, productRequestDto);
   }
 
   public async Task DeleteProduct(Guid id)

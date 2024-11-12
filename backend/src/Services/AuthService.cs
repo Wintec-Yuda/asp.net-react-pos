@@ -1,4 +1,4 @@
-using PointOfSale.DTO;
+using PointOfSale.DTO.Request;
 using PointOfSale.Models;
 using PointOfSale.Repositories.Interfaces;
 using PointOfSale.Services.Interfaces;
@@ -16,25 +16,25 @@ public class AuthService : IAuthService
     _userRepository = userRepository;
   }
 
-  public async Task Register(RegisterRequestDto registerDto)
+  public async Task Register(RegisterRequestDto registerRequestDto)
   {
-    string passwordHash = Security.EncodeBcrypt(registerDto.Password!);
-    if (await _userRepository.ExistsEmail(registerDto.Email!))
+    string passwordHash = Security.EncodeBcrypt(registerRequestDto.Password!);
+    if (await _userRepository.ExistsEmail(registerRequestDto.Email!))
     {
       throw new Exception("Email already exists");
     }
-    User user = new User(registerDto.Name, registerDto.Email, passwordHash);
+    User user = new User(registerRequestDto.Name, registerRequestDto.Email, passwordHash);
     await _authRepository.Register(user);
   }
 
-  public async Task<string> Login(LoginRequestDto loginDto)
+  public async Task<string> Login(LoginRequestDto loginRequestDto)
   {
-    User? user = await _userRepository.GetUserByEmail(loginDto.Email!);
+    User? user = await _userRepository.GetUserByEmail(loginRequestDto.Email!);
     if (user == null)
     {
       throw new Exception("User not found");
     }
-    if (!Security.VerifyBcrypt(loginDto.Password!, user.Password!))
+    if (!Security.VerifyBcrypt(loginRequestDto.Password!, user.Password!))
     {
       throw new Exception("Invalid password");
     }

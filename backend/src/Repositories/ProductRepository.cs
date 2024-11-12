@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PointOfSale.Data;
-using PointOfSale.DTO;
+using PointOfSale.DTO.Request;
 using PointOfSale.Models;
 using PointOfSale.Repositories.Interfaces;
 
@@ -27,10 +27,10 @@ public class ProductRepository : IProductRepository
     await _context.SaveChangesAsync();
   }
 
-  public async Task UpdateProduct(Product product, ProductRequestDto productDto)
+  public async Task UpdateProduct(Product product, ProductRequestDto productRequestDto)
   {
-    product.Name = productDto.Name;
-    product.Price = productDto.Price;
+    product.Name = productRequestDto.Name;
+    product.Price = productRequestDto.Price;
 
     await _context.SaveChangesAsync();
   }
