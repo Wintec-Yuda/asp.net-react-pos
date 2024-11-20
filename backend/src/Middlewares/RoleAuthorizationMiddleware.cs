@@ -13,6 +13,13 @@ public class RoleAuthorizationMiddleware
 
     public async Task Invoke(HttpContext context)
     {
+        // Jika endpoint adalah /api/auth/register atau /api/auth/login, lanjutkan ke request berikutnya
+        var path = context.Request.Path.Value;
+        if (path != null && (path.Equals("/api/auth/register", StringComparison.OrdinalIgnoreCase) || path.Equals("/api/auth/login", StringComparison.OrdinalIgnoreCase)))
+        {
+            await _next(context);
+            return;
+        }
         // Periksa apakah pengguna sudah diautentikasi
         if (context.User.Identity!.IsAuthenticated)
         {

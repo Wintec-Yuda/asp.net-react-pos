@@ -16,7 +16,7 @@ public class ProductController : ControllerBase
     _productService = productService;
   }
 
-  [Authorize]
+  [Authorize(Roles = "ADMIN,USER")]
   [HttpGet]
   public async Task<IActionResult> GetProducts()
   {
@@ -35,7 +35,7 @@ public class ProductController : ControllerBase
     }
   }
 
-  [Authorize]
+  [Authorize(Roles = "ADMIN,USER")]
   [HttpGet("{id}")]
   public async Task<IActionResult> GetProductById(Guid id)
   {

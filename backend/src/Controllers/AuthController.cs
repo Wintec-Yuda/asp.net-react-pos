@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PointOfSale.DTO.Request;
 using PointOfSale.Services.Interfaces;
@@ -13,7 +14,7 @@ public class AuthController : ControllerBase
   public AuthController(IAuthService authService) => _authService = authService;
 
   [HttpPost("register")]
-  public async Task<IActionResult> Register([FromBody]RegisterRequestDto registerRequestDto)
+  public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerRequestDto)
   {
     try
     {
@@ -33,12 +34,13 @@ public class AuthController : ControllerBase
   }
 
   [HttpPost("login")]
-  public async Task<IActionResult> Login([FromBody]LoginRequestDto loginRequestDto)
+  public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequestDto)
   {
     try
     {
       string token = await _authService.Login(loginRequestDto);
-      return Ok(new {
+      return Ok(new
+      {
         message = "User logged in successfully",
         token
       });
